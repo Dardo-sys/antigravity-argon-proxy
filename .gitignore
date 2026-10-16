@@ -1,0 +1,27 @@
+# Environment and secret keys
+.env
+.env.local
+.env.*.local
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Telemetry ledger with local token accounting
+argon-telemetry.json
+
+# IDE and OS files
+.agents/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
