@@ -138,6 +138,29 @@ To use `gemini-4-argon`, Google requires the AI Studio project to be in **Pay-as
 
 ---
 
+## 💰 Cost Control & Safe Usage (How to not burn your credits)
+
+To ensure you never burn through your credits unintentionally, follow these best practices:
+
+### 1. Division of Labor (95% Free vs. 5% Surgical)
+* **Daily Development ($0.00 Cost):** Let your primary Antigravity model (e.g., Gemini Flash) handle routine tasks like code editing, shell commands, unit tests, and general questions. This consumes zero API credits.
+* **On-Demand Deep Reasoning:** Only invoke Argon when dealing with difficult tasks: intricate concurrency bugs, full-repo architectural audits, or formal proofs. In chat, Argon is strictly triggered on-demand (e.g., *"Ask Argon to review..."*).
+
+### 2. Set a Hard Spending Limit in Google AI Studio
+In your [Google AI Studio Spend Dashboard](https://aistudio.google.com/app/spend), click **"Set monthly budget limit"** (or *Establecer límite de inversión*) and set a cap (e.g., **$10 USD**).
+* Once the cap is reached, Google cuts API access immediately.
+* It is physically impossible to incur unwanted excess charges.
+
+### 3. Automatic Google Implicit Caching (95% Discount)
+* When reviewing whole repositories with `--repo-dir` or attaching multi-file context, Google caches the prompt prefix automatically.
+* Cached input tokens cost only **$0.10 / 1M tokens** (down from $2.00 / 1M), allowing hundreds of large queries within the $10 USD allowance.
+
+### 4. Built-in Telemetry & Ledger
+Every query outputs a real-time accounting block and persists metrics to `~/.gemini/argon-telemetry.json`:
+* Check remaining balance anytime via the MCP tool `argon_telemetry` or by running `VER_SALDO_TELEMETRIA.bat`.
+
+---
+
 ## 📄 License
 
 MIT License. See [LICENSE](LICENSE) for details.
