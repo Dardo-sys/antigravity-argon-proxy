@@ -159,6 +159,24 @@ In your [Google AI Studio Spend Dashboard](https://aistudio.google.com/app/spend
 Every query outputs a real-time accounting block and persists metrics to `~/.gemini/argon-telemetry.json`:
 * Check remaining balance anytime via the MCP tool `argon_telemetry` or by running `VER_SALDO_TELEMETRIA.bat`.
 
+### 5. Telemetry Architecture: What is Real vs. Client-Side Ledger
+To maintain complete engineering transparency regarding token and cost verification:
+
+1. **Google Real-Time Verification (100% Real Server Data):**  
+   Every inference call to `gemini-4-argon` returns an official `usage_metadata` payload generated directly by Google's API servers. This includes the exact counts of:
+   * `prompt_token_count` (uncached input tokens).
+   * `cached_content_token_count` (tokens benefiting from Google's 95% caching discount).
+   * `candidates_token_count` (generated response + thinking tokens).  
+   *These figures are strictly non-simulated and come from Google's infrastructure.*
+
+2. **Deterministic Dollar Computation:**  
+   The dollar cost (`cost_usd`) is computed per call using Google's published pricing for the model ($2.00 / 1M uncached in, $0.10 / 1M cached in, $10.00 / 1M out).
+
+3. **Client-Side Budget Guardrail (The $10 USD Credit):**  
+   Google's AI Studio inference API keys do **not** have authorization to query external Google Cloud Billing accounts or credit card balances.  
+   Therefore, the **`remaining_from_10usd_credit`** metric is an **internal client-side accounting ledger (an odometer)** maintained in `~/.gemini/argon-telemetry.json`. It assumes a starting budget of $10.00 USD (matching the monthly grant from the Google Developer Program) and subtracts accumulated usage to protect you from unexpected spend.  
+   *The definitive, binding financial source of truth for your credits and billing is always the [Google AI Studio Spend Dashboard](https://aistudio.google.com/app/spend).*
+
 ---
 
 ## 📄 License
